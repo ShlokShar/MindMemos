@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Entries</title>
+    <link href="../static/css/output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #ecf9eb;">
+    <!-- NAVIGATION BAR -->
+    <nav class="flex flex-row justify-between px-5 pt-2 items-center">
+        <img src="../static/img/logo.png" width="30%">
+
+        <!-- NAVIGATION BAR BUTTONS -->
+        <div class="flex justify-between space-x-4 items-center text-primarytext text-xl font-poppins">
+            <p class="py-2 px-3 rounded-2xl cursor-pointer"><a href="/">Dashboard</a></p>
+            <p class="bg-accent py-2 px-3 rounded-2xl cursor-pointer"><a href="/logout">Sign Out</a></p>
+        </div>
+    </nav>
+
+    <!-- ENTRIES -->
+    <div class="flex flex-row items-start px-5 py-16">
+        <div class="flex flex-col space-y-5 px-14 w-1/2">
+            {% for entry in entries %}
+            <div class="bg-accent font-poppins p-5 rounded-3xl">
+                <h1 onclick="changeEntryText('{{ entry["Text"] }}')" class="text-[25px]">Entry: {{ entry["Date"] }}</h1>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="entry_text" class="bg-white rounded-3xl p-4 font-poppins text-[25px] w-1/2">
+
+        </div>
+    </div>
+    <script>
+        function changeEntryText(text) {
+            document.getElementById("entry_text").innerHTML = text
+        }
+    </script>
+</body>
+</html>

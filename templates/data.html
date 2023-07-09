@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis</title>
+    <link href="../static/css/output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #ecf9eb;">
+    <!-- NAVIGATION BAR -->
+    <nav class="flex flex-row justify-between px-5 pt-2 items-center">
+        <img src="../static/img/logo.png" width="30%">
+
+        <!-- NAVIGATION BAR BUTTONS -->
+        <div class="flex justify-between space-x-4 items-center text-primarytext text-xl font-poppins">
+            <p class="py-2 px-3 rounded-2xl cursor-pointer"><a href="/">Dashboard</a></p>
+            <p class="bg-accent py-2 px-3 rounded-2xl cursor-pointer"><a href="/logout">Sign Out</a></p>
+        </div>
+    </nav>
+
+    <!-- ENTRIES -->
+    <div class="flex flex-row justify-st px-5 py-16 items-center">
+        <div class="flex flex-col space-y-5 px-14 w-1/2">
+            {% for emotion in emotions %}
+            <h1 class="font-poppins text-3xl text-primarytext">{{ emotion.upper() }}: </h1>
+            <progress class="bg-accent text-accent w-full rounded-full h-2" value="{{ emotions[emotion] }}" max="1"></progress>
+            {% endfor %}
+        </div>
+        <div id="entry_text" class="w-1/2">
+            <img src="{{ pie_path }}">
+        </div>
+    </div>
+</body>
+</html>

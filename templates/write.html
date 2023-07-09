@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Entry</title>
+    <link href="../static/css/output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #ecf9eb;">
+    <!-- NAVIGATION BAR -->
+    <nav class="flex flex-row justify-between px-5 pt-2 items-center">
+        <img src="../static/img/logo.png" width="30%">
+
+        <!-- NAVIGATION BAR BUTTONS -->
+        <div class="flex justify-between space-x-4 items-center text-primarytext text-xl font-poppins">
+            <p class="py-2 px-3 rounded-2xl cursor-pointer"><a href="/">Dashboard</a></p>
+            <p class="bg-accent py-2 px-3 rounded-2xl cursor-pointer"><a href="/logout">Sign Out</a></p>
+        </div>
+    </nav>
+
+    <!-- MAIN BUTTONS -->
+    <div class="flex flex-row justify-st px-5 py-16 items-center">
+        <form class="flex flex-col space-y-5 px-14 w-1/2" action="/write" method="post">
+            <p class="text-4xl font-bold font-poppins text-primarytext">Entry: <span class="text-accent font-sans font-semibold text-4xl">{{ title }}</span></p>
+            <textarea name="entry" id="entry" class="p-3 bg-transparent text-[20px] font-poppins outline-none " oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' placeholder="Start Writing..."></textarea>
+            <input type="submit" class="bg-accent w-min px-3 py-2 rounded-3xl text-primarytext font-poppins text-[20px]">
+        </form>
+    </div>
+    <div class="fixed bottom-0 right-0 flex flex-col items-end p-4 space-y-1 w-1/5">
+        <div id="genesis" class="bg-white rounded-3xl p-5 flex flex-col" style="display: none">
+            <p class="text-primarytext text-[20px] font-bold font-poppins">Genesis:</p>
+            <p class="text-gray-400">Reflections:</p>
+            <img id="loading" src="static/img/loading.gif" width="25%">
+            <p id="questions"></p>
+        </div>
+        <p class="bg-accent rounded-full py-3 text-black px-5 text-[30px] grow-0 w-min cursor-pointer" onclick="showGenesis()" onselect="return false">💬</p>
+    </div>
+    <script src="../static/img/script.js"></script>
+    <script>
+        let reviewed = false;
+        function showGenesis() {
+            if (document.getElementById("genesis").style.display == "flex") {
+                document.getElementById("genesis").style.display = "none"
+            } else {
+                document.getElementById("genesis").style.display = "flex"
+                if (!reviewed) {
+                    typeWrite()
+                    reviewed = true;
+                }
+            }
+
+        }
+
+        function typeWrite() {
+            fetch(`/genesis/${document.getElementById("entry").value}`)
+                .then(response => response.json())
+                .then(data => {
+
+
+
+                    document.getElementById("loading").style.visibility = "hidden"
+                    for (let i =0; i < data.length; i++) {
+                        setTimeout(() => {
+
+                            document.getElementById("questions").innerHTML += data[i];
+                            if (data[i] === "?") {
+                                document.getElementById("questions").innerHTML += "<br>"
+                            }
+                        }, 1500 + (i * 50))
+                    }
+                })
+        }
+    </script>
+</body>
+</html>

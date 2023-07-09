@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="../static/css/output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #ecf9eb;">
+    <!-- NAVIGATION BAR -->
+    <nav class="flex flex-row justify-between px-5 pt-2 items-center">
+        <img src="../static/img/logo.png" width="30%">
+
+        <!-- NAVIGATION BAR BUTTONS -->
+        <div class="flex justify-between space-x-4 items-center text-primarytext text-xl font-poppins">
+            <p class="bg-accent py-2 px-3 rounded-2xl cursor-pointer"><a href="/logout">Sign Out</a></p>
+        </div>
+    </nav>
+
+    <!-- MAIN BUTTONS -->
+    <div class="flex flex-row justify-between px-5 py-2 items-center h-full">
+        <div class="flex flex-col w-1/2 space-y-5 px-14">
+            <p class="text-5xl font-bold font-poppins text-primarytext"><span id="greeting">Good Morning</span>, <span class="text-accent font-sans font-black italic">{{ name }}</span></p>
+            <a href="/write" class="flex justify-between p-2 bg-white hover:bg-[#88ddb0] rounded-3xl items-center">
+
+                <p class="text-3xl font-poppins text-primarytext px-1">> Start Writing</p>
+                <p class="text-4xl px-1">✍️</p>
+            </a>
+            <a href="/entries" class="flex justify-between p-2 bg-white hover:bg-[#88ddb0] rounded-3xl items-center">
+                <p class="text-3xl font-poppins text-primarytext px-1">> View Past Entries</p>
+                <p class="text-4xl px-1">📕</p>
+            </a>
+            <a href="/analyze" class="flex justify-between p-2 bg-white hover:bg-[#88ddb0] rounded-3xl items-center">
+                <p class="text-3xl font-poppins text-primarytext px-1">> Analyze Moods</p>
+                <p class="text-4xl px-1">📈</p>
+            </a>
+        </div>
+        <div class="w-1/2">
+            <img src="../static/img/main.png">
+        </div>
+    </div>
+    <script>
+        var hours = new Date().getHours();
+        let greeting;
+
+        if (hours < 12) {
+            greeting = "Good Morning";
+        } else if (hours >= 12 && hours <= 17) {
+            greeting = "Good Afternoon";
+        } else if (hours >= 17 && hours <= 24) {
+            greeing = "Good Evening";
+        }
+
+        document.getElementById("greeting").innerHTML = greeting;
+    </script>
+</body>
+</html>
