@@ -5,7 +5,7 @@ from firebase_admin import credentials, firestore
 import openai
 import torch
 import torch.nn.functional as F
-from datetime import datetime
+import random
 
 # from nltk.corpus import stopwords
 
@@ -14,7 +14,7 @@ model = AutoModelForSequenceClassification.from_pretrained("SamLowe/roberta-base
 
 # nltk_words = list(stopwords.words('english'))
 
-openai.api_key = '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'
+openai.api_key = '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'
 
 cred = credentials.Certificate('data.json')
 firebase_admin.initialize_app(cred)
@@ -231,7 +231,7 @@ def createUser(name,userID):
 def plotPie(labels, data):
     colors = ['#88ddda', '#68FAEA', '#93FBEF']
     fig = plt.figure(figsize=(10, 7))
-    patches, texts, autotexts = plt.pie(data, labels=labels, colors=colors, autopct='%1.1f%%', )
+    patches, texts, autotexts = plt.pie(data, labels=labels, colors=colors, autopct='%1.1f%%', counterclock=False)
 
     for text in texts:
         text.set_color('grey')

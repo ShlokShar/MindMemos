@@ -58,7 +58,7 @@ def login():
 
             user = authentication.sign_in_with_email_and_password(email, password)
             flask.session["user"] = user["localId"]
-            return flask.render_template("dashboard.html")
+            return flask.redirect("/")
         except:
             return flask.render_template("login.html", error="Account does not exist!")
 
@@ -96,7 +96,6 @@ def logout():
 def analyze():
     if flask.session.get("user"):
         emotions = totalStats(flask.session["user"])
-
         plotPie(emotions.keys(), emotions.values())
 
         return flask.render_template("data.html", emotions=emotions, pie_path="static/img/pie.png")
